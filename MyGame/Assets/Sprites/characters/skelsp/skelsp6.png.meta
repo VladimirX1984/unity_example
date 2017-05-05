@@ -1,0 +1,185 @@
+fileFormatVersion: 2
+guid: c1122ae92406f4cb7b2786fd058c8ed3
+timeCreated: 1473406498
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: skelsp6_0
+    21300002: skelsp6_1
+    21300004: skelsp6_2
+    21300006: skelsp6_3
+    21300008: skelsp6_4
+    21300010: skelsp6_5
+    21300012: skelsp6_6
+    21300014: skelsp6_7
+    21300016: skelsp6_8
+    21300018: skelsp6_9
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: skelsp6_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 74
+        width: 56
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -19, y: 36}
+        - {x: -19, y: -36}
+        - {x: 22, y: -36}
+        - {x: 22, y: 14}
+        - {x: 9, y: 36}
+    - name: skelsp6_1
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 74
+        width: 56
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 3, y: 36}
+        - {x: -8, y: 36}
+        - {x: -20, y: 25}
+        - {x: -20, y: -36}
+        - {x: 22, y: -36}
+        - {x: 22, y: 14}
+        - {x: 6, y: 33}
+    - name: skelsp6_2
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 74
+        width: 56
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 4, y: 36}
+        - {x: -9, y: 36}
+        - {x: -19, y: 24}
+        - {x: -19, y: -36}
+        - {x: 24, y: -36}
+        - {x: 24, y: 13}
+        - {x: 7, y: 35}
+    - name: skelsp6_3
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 74
+        width: 56
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 3, y: -32}
+        - {x: 4, y: -35}
+        - {x: 6, y: -36}
+        - {x: 21, y: -36}
+        - {x: 23, y: -30}
+        - {x: 23, y: 19}
+        - {x: 9, y: 36}
+        - {x: -12, y: 36}
+        - {x: -20, y: 32}
+        - {x: -20, y: -36}
+        - {x: 2, y: -36}
+        - {x: 3, y: -34}
+        - {x: 3, y: -33}
+        - {x: 1, y: -31}
+    - name: skelsp6_4
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 74
+        width: 56
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20, y: 12}
+        - {x: -20, y: -36}
+        - {x: 19, y: -36}
+        - {x: 19, y: 11}
+        - {x: 15, y: 36}
+        - {x: -8, y: 36}
+        - {x: -18, y: 25}
+    - name: skelsp6_5
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 56
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 5, y: -36}
+        - {x: 22, y: -36}
+        - {x: 22, y: 9}
+        - {x: 18, y: 36}
+        - {x: -16, y: 36}
+        - {x: -28, y: 15}
+        - {x: -28, y: -31}
+        - {x: -15, y: -36}
+        - {x: 1, y: -36}
+        - {x: 3, y: -33}
+        - {x: 3, y: -31}
+        - {x: 3, y: -33}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
