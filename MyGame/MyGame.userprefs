@@ -1,0 +1,26 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/enemies/Portal.cs">
+    <Files>
+      <File FileName="Assets/scripts/ng/BaseGameObject.cs" Line="58" Column="22" />
+      <File FileName="Assets/scripts/GameManager.cs" Line="203" Column="28" />
+      <File FileName="Assets/scripts/player/skelsp/Bullet.cs" Line="34" Column="3" />
+      <File FileName="Assets/scripts/ng/BaseObject.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/enemies/Mouth.cs" Line="55" Column="24" />
+      <File FileName="Assets/scripts/enemies/Portal.cs" Line="45" Column="24" />
+      <File FileName="Assets/scripts/player/skelsp/Skelsp.cs" Line="138" Column="31" />
+      <File FileName="Assets/scripts/Level.cs" Line="29" Column="19" />
+      <File FileName="Assets/scripts/Tree.cs" Line="20" Column="46" />
+      <File FileName="Assets/scripts/player/skelsp/Gun.cs" Line="105" Column="18" />
+      <File FileName="Assets/scripts/ng/enemy/Enemy.cs" Line="10" Column="1" />
+      <File FileName="Assets/scripts/ng/players/Player.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/player/skelsp/AnimFireHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/player/skelsp/AnimHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/ng/Helpers.cs" Line="75" Column="39" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

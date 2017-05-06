@@ -36,7 +36,7 @@ public class EnemyManager : BaseMonoManager {
       enemy.IsBonus = (Random.Range(0, 39 + number) >= 23 + number);
     }
     //DebugLogger.WriteInfo("EnemyManager.AddEnemy enemy.Id = {0}; enemy.IsBonus = {1}; number = {2}",
-    //                    enemy.Id, enemy.IsBonus ? 1 : 0, number);
+      //                  enemy.Id, enemy.IsBonus ? 1 : 0, number);
     _enemyList.Add(enemy);
     _enemyIdList.Add(enemy.Id);
     enemy.AddObserver(_DiedObject);
@@ -47,6 +47,11 @@ public class EnemyManager : BaseMonoManager {
       enemy.IsControlable = false;
     }
     StartCoroutine(__AvakeEnemies(time));
+  }
+
+  public void Clear() {
+    _enemyList.Clear();
+    _enemyIdList.Clear();
   }
 
   public event UnityAction OnEnemyZero;

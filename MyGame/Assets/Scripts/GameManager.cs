@@ -255,20 +255,14 @@ public class GameManager : EG.UnitySingleton<GameManager> {
   }
 
   private IEnumerator _LevelUpEndCoroutine() {
-    DebugLogger.WriteInfo("_LevelUpEndCoroutine");
-    //_LevelOff();
-    //_reveal1.transform.Translate(new Vector3(-2.1f, 0, 0));
-    //_reveal2.transform.Translate(new Vector3(-2.1f, 0, 0));
+    DebugLogger.WriteInfo("_LevelUpEndCoroutine");    
     _MenuOnOff(false);
     _LevelOn();
     _stageText.text = String.Format("STAGE {0}", _levelNumber);
     _stageText.enabled = true;
     _canvas.sortingOrder = 3;
-
-    //_audio.Play();
-    //float lengthMusic = _audio.clip.length;
+    
     yield return new WaitForSeconds(1);
-    //Application.LoadLevel(_level);
 
     _stageText.enabled = false;
     _canvas.sortingOrder = 0;
@@ -291,6 +285,7 @@ public class GameManager : EG.UnitySingleton<GameManager> {
       _gameLevel.Init(_player);
       _inputManager.SetPlayer(_player);
       _gameLevel.OnLevelWin += OnLevelWin;
+      _gameLevel.OnUserExit += OnUserExit;
     }
 
     _player.gameObject.SetActive(true);
@@ -316,17 +311,28 @@ public class GameManager : EG.UnitySingleton<GameManager> {
     player.gameObject.SetActive(false);
     yield return new WaitForSeconds(3f);
     _levelWinText.enabled = false;
-    _gameLevel.Exit();
-    player.SetPosition(Vector2.zero);
-    if (_highScore < player.Score) {
-      HighScore = player.Score;
-      _highScoreText.text = String.Format("High Score: {0}", _highScore);
-    }
-    _MenuOnOff(true);
+    Exit(0);    
   }
 
   private void OnLevelWin() {
     _LevelOff();
+  }
+
+  private void OnUserExit(int reason) {    
+    _player.IsControlable = false;
+    _player.gameObject.SetActive(false);
+    Exit(reason);
+  }
+
+  private void Exit(int reason) {
+    _gameLevel.Exit();
+    if (reason == 0) {      
+      if (_highScore < _player.Score) {
+        HighScore = _player.Score;
+        _highScoreText.text = String.Format("High Score: {0}", _highScore);
+      }
+    }
+    _MenuOnOff(true);
   }
 
   #endregion

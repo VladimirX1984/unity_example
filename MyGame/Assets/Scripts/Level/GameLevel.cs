@@ -114,9 +114,11 @@ public class GameLevel : BaseMonoObject, IGameLevel {
     DestroyImmediate(_levelAllSprites);
     GameCanvas.enabled = false;
     GameUI.SetActive(false);
+    _enemyManager.Clear();
   }
-
+  
   public event UnityAction OnLevelWin;
+  public event UnityAction<int> OnUserExit;
 
   #endregion
 
@@ -234,9 +236,6 @@ public class GameLevel : BaseMonoObject, IGameLevel {
                        new Vector2(maxPosX - minPosX, maxPosY - minPosX));
     }
 
-    //Field = new Rect(new Vector2(-0.5f * size.x, -0.5f * size.y),
-    //               new Vector2(size.x, size.y));
-
     if (jsTerrain.AsDictionary.ContainsKey("bridges")) {
       var jsBrigdeList = jsTerrain.AsDictionary["bridges"].AsList;
       foreach (var jsBrigde in jsBrigdeList) {
@@ -294,6 +293,18 @@ public class GameLevel : BaseMonoObject, IGameLevel {
     _player.SetGunType((Gun.Weapons)weapon);
   }
 
+  public void UserExit(int reason) {
+    DebugLogger.WriteInfo("GameLevel.UserExit reason = {0}", reason);
+    StartCoroutine(_UserExitCoroutine(reason));
+  }
+
+  private IEnumerator _UserExitCoroutine(int reason) {
+    yield return new WaitForSeconds(0.1f);
+    if (OnUserExit != null) {
+      OnUserExit(reason);
+    }
+  }
+
   #region MonoBehaviour Events
 
   protected override void Start() {
@@ -312,8 +323,7 @@ public class GameLevel : BaseMonoObject, IGameLevel {
 
   private float shiftX = 0f;
 
-  private void OnPlayerMoved(Vector2 vec) {
-    //DebugLogger.WriteInfo("OnPlayerMoved vec = {0}", vec.ToString());
+  private void OnPlayerMoved(Vector2 vec) {    
     var vec2 = new Vector3(_player.__Transform.localPosition.x - shiftX,
                            _player.__Transform.localPosition.y,
                            GameManager.Instance.MainCamera.transform.localPosition.z);
@@ -324,16 +334,14 @@ public class GameLevel : BaseMonoObject, IGameLevel {
 
   private void OnPlayerPosSetted(Vector2 pos) {
     DebugLogger.WriteInfo("OnPlayerPosSetted vec = {0}", pos.ToString());
-    var vec2 = new Vector3(pos.x - shiftX, pos.y,
-                           GameManager.Instance.MainCamera.transform.localPosition.z);
+    var vec2 = new Vector3(pos.x - shiftX, pos.y, GameManager.Instance.MainCamera.transform.localPosition.z);
     GameManager.Instance.MainCamera.transform.localPosition = vec2;
     GameUI.transform.localPosition = vec2;
     GameCanvas.transform.localPosition = -1f * vec2;
   }
 
   private void _DiedObject(IGameObject obj, int reason) {
-    DebugLogger.WriteVerbose("GameLevel._DeadObject obj.gameObject.tag = {0}; reason = {1}",
-                             obj.gameObject.tag, reason);
+    DebugLogger.WriteVerbose("GameLevel._DeadObject obj.gameObject.tag = {0}; reason = {1}", obj.gameObject.tag, reason);
     if (reason > 0) {
       return;
     }
