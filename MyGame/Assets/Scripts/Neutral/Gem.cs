@@ -85,31 +85,31 @@ public class Gem : NeutralObject {
     }
     switch (other.gameObject.tag) {
       case GameLevel.BorderTagName: {
-      } break;
+        } break;
       case GameLevel.BulletTagName: {
-      } break;
+        } break;
       case GameLevel.EnemyTagName: {
-        var enemy = other.gameObject.GetComponent<Enemy>();
-        if (enemy != null) {
-          if (enemy is Monster) {
-            (enemy as Monster).ApplyGem(BonusType);
-          }
-          else if (enemy is Beetle) {
-            (enemy as Beetle).ApplyGem(BonusType);
+          var enemy = other.gameObject.GetComponent<Enemy>();
+          if (enemy != null) {
+            if (enemy is Monster) {
+              (enemy as Monster).ApplyGem(BonusType);
+            }
+            else if (enemy is Beetle) {
+              (enemy as Beetle).ApplyGem(BonusType);
+            }
           }
         }
-      }
-      break;
+        break;
       case GameLevel.PlayerTagName: {
-        var player = other.gameObject.GetComponent<Skelsp>();
-        if (player != null) {
-          player.ApplyGem(BonusType);
+          var player = other.gameObject.GetComponent<Skelsp>();
+          if (player != null) {
+            player.ApplyGem(BonusType);
+          }
+          Hit(1.0f);
         }
-        Hit(1.0f);
-      }
-      break;
+        break;
       case GameLevel.TerrainTagName: {
-      } break;
+        } break;
     }
   }
 

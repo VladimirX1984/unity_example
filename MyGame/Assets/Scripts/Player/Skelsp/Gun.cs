@@ -37,8 +37,8 @@ public class Gun : MonoBehaviour {
 
   public bool IsBurst {
     get {
-      return carringWeapo == Weapons.AssaultRifle || carringWeapo == Weapons.AssaultRifle2
-             || carringWeapo == Weapons.PlasmaGun;
+      return carringWeapo == Weapons.AssaultRifle || carringWeapo == Weapons.AssaultRifle2 ||
+             carringWeapo == Weapons.PlasmaGun;
     }
   }
 
@@ -57,7 +57,7 @@ public class Gun : MonoBehaviour {
       if (OnAmmoChanged != null) {
         OnAmmoChanged(projectile.ammo);
       }
-    }*/
+      }*/
   }
 
   public void SetCarringWeapo(Weapons weapo) {
@@ -192,8 +192,7 @@ public class Gun : MonoBehaviour {
     var pos = (Vector2)_skelspTransform.localPosition + coef * vDirection;
     Bullet bul = EG.EGHelpers.CreateObjectByPrefab<Bullet>(pos, bulletProj.prefab);
 
-    bul.Init(pos, bulletProj.speed, bulletProj.strength, vDirection, bulletProj.scale,
-             bulletProj.acceleration);
+    bul.Init(pos, bulletProj.speed, bulletProj.strength, vDirection, bulletProj.scale, bulletProj.acceleration);
     --bulletProj.ammo;
     if (OnAmmoChanged != null) {
       OnAmmoChanged(bulletProj.ammo);

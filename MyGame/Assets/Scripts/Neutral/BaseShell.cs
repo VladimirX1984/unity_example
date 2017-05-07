@@ -20,21 +20,24 @@ public class BaseShell : BaseGameObject {
     if (__isInit) {
       return;
     }
-    DebugLogger.WriteVerbose("Bullet.OnTriggerEnter2D other.gameObject.tag = {0}",
-                             other.gameObject.tag);
+    DebugLogger.WriteVerbose("Bullet.OnTriggerEnter2D other.gameObject.tag = {0}", other.gameObject.tag);
     switch (other.gameObject.tag) {
       case GameLevel.BorderTagName: {
-        HandleTriggerBorder(other);
-      } break;
+          HandleTriggerBorder(other);
+        }
+        break;
       case GameLevel.EnemyTagName: {
-        HandleTriggerEnemy(other);
-      } break;
+          HandleTriggerEnemy(other);
+        }
+        break;
       case GameLevel.PlayerTagName: {
-        HandleTriggerPlayer(other);
-      } break;
+          HandleTriggerPlayer(other);
+        }
+        break;
       case GameLevel.TerrainTagName: {
-        HandleTriggerTerrain(other);
-      } break;
+          HandleTriggerTerrain(other);
+        }
+        break;
     }
   }
 

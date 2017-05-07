@@ -57,12 +57,6 @@ public class GameLevel : BaseMonoObject, IGameLevel {
 
   #endregion
 
-  #region Animation
-
-  //public RuntimeAnimatorController shield;
-
-  #endregion
-
   #region Texts
 
   public Text _levelText;
@@ -116,8 +110,9 @@ public class GameLevel : BaseMonoObject, IGameLevel {
     GameUI.SetActive(false);
     _enemyManager.Clear();
   }
-  
+
   public event UnityAction OnLevelWin;
+  public event UnityAction OnGameOver;
   public event UnityAction<int> OnUserExit;
 
   #endregion
@@ -209,8 +204,7 @@ public class GameLevel : BaseMonoObject, IGameLevel {
 
     if (islandList.Count == 1) {
       var island = islandList[0];
-      Field = new Rect(new Vector2(island.Pos.x - 0.5f * island.Size.x,
-                                   island.Pos.y - 0.5f * island.Size.y),
+      Field = new Rect(new Vector2(island.Pos.x - 0.5f * island.Size.x, island.Pos.y - 0.5f * island.Size.y),
                        new Vector2(island.Size.x, island.Size.y));
     }
     else {
@@ -232,8 +226,7 @@ public class GameLevel : BaseMonoObject, IGameLevel {
           maxPosY = island.Pos.y + 0.5f * island.Size.y;
         }
       }
-      Field = new Rect(new Vector2(minPosX, minPosY),
-                       new Vector2(maxPosX - minPosX, maxPosY - minPosX));
+      Field = new Rect(new Vector2(minPosX, minPosY), new Vector2(maxPosX - minPosX, maxPosY - minPosX));
     }
 
     if (jsTerrain.AsDictionary.ContainsKey("bridges")) {
@@ -261,7 +254,7 @@ public class GameLevel : BaseMonoObject, IGameLevel {
           var portalPos = GameLevelJsonLoader.GetPos(jsPortalData["pos"]);
           int islandId = jsPortalData.ContainsKey("islandId") ? (int)jsPortalData["islandId"].AsInt64 : -1;
           var portal = EGHelpers.CreateObjectByPrefab<Portal>((islandId == -1 ? portalPos :
-                       (portalPos + islandList.Find(it => it.Id == islandId).Pos)), prefabPortal, _levelAllSprites.transform);
+                                                               (portalPos + islandList.Find(it => it.Id == islandId).Pos)), prefabPortal, _levelAllSprites.transform);
           portal.Level = portalLevel;
           portal.AddObserver(_DiedObject);
           _enemyManager.AddEnemy(portal);
@@ -323,7 +316,7 @@ public class GameLevel : BaseMonoObject, IGameLevel {
 
   private float shiftX = 0f;
 
-  private void OnPlayerMoved(Vector2 vec) {    
+  private void OnPlayerMoved(Vector2 vec) {
     var vec2 = new Vector3(_player.__Transform.localPosition.x - shiftX,
                            _player.__Transform.localPosition.y,
                            GameManager.Instance.MainCamera.transform.localPosition.z);
@@ -344,6 +337,11 @@ public class GameLevel : BaseMonoObject, IGameLevel {
     DebugLogger.WriteVerbose("GameLevel._DeadObject obj.gameObject.tag = {0}; reason = {1}", obj.gameObject.tag, reason);
     if (reason > 0) {
       return;
+    }
+    if (obj is Skelsp) {
+      if (OnGameOver != null) {
+        OnGameOver();
+      }
     }
   }
 

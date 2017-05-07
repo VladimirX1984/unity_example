@@ -21,6 +21,8 @@ public class GameManager : EG.UnitySingleton<GameManager> {
 
   public Text _levelWinText;
 
+  public Text _gameOverText;
+
   #endregion
 
   #region GameObjects
@@ -70,49 +72,41 @@ public class GameManager : EG.UnitySingleton<GameManager> {
 
   #region Методы создания бордюр
 
-  public Border CreateSpriteVBorder(string id, Vector2 pos, Vector2 size,
-                                    Transform parentTransform, bool bTop) {
+  public Border CreateSpriteVBorder(string id, Vector2 pos, Vector2 size, Transform parentTransform, bool bTop) {
     var coef = bTop ? 0.5f : -0.5f;
-    var border = EGHelpers.CreateSpriteByScript<Border>(
-                   new Vector2(pos.x, pos.y + coef * size.y), _gameLevel.border,
-                   "vBorder" + id, parentTransform, "Border");
+    var border = EGHelpers.CreateSpriteByScript<Border>(new Vector2(pos.x, pos.y + coef * size.y), _gameLevel.border,
+                                                        "vBorder" + id, parentTransform, "Border");
 
     border.GetComponent<SpriteRenderer>().color = new Color(0.1f, 0.1f, 0.1f);
     border.transform.localScale = new Vector3(size.x * 100f / _gameLevel.border.rect.width,
-        size.y * 100f / _gameLevel.border.rect.height, 1.0f);
+                                              size.y * 100f / _gameLevel.border.rect.height, 1.0f);
     return border;
   }
 
-  public Border CreateVBorder(string id, Vector2 pos, Vector2 size,
-                              Transform parentTransform, bool bTop) {
+  public Border CreateVBorder(string id, Vector2 pos, Vector2 size, Transform parentTransform, bool bTop) {
     var coef = bTop ? 0.5f : -0.5f;
-    var border = EGHelpers.CreateObjectByScript<Border>(
-                   new Vector2(pos.x, pos.y + coef * size.y), "vBorder" + id,
-                   parentTransform, "Border");
+    var border = EGHelpers.CreateObjectByScript<Border>(new Vector2(pos.x, pos.y + coef * size.y),
+                                                        "vBorder" + id, parentTransform, "Border");
     var boxCollider = border.GetComponent<BoxCollider2D>();
     boxCollider.size = new Vector2(size.x, size.y);
     return border;
   }
 
-  public Border CreateSpriteHBorder(string id, Vector2 pos, Vector2 size,
-                                    Transform parentTransform, bool bRight) {
+  public Border CreateSpriteHBorder(string id, Vector2 pos, Vector2 size, Transform parentTransform, bool bRight) {
     var coef = bRight ? 0.5f : -0.5f;
-    var border = EGHelpers.CreateSpriteByScript<Border>(
-                   new Vector2(pos.x + coef * size.x, pos.y), _gameLevel.border,
-                   "hBorder" + id, parentTransform, "Border");
+    var border = EGHelpers.CreateSpriteByScript<Border>(new Vector2(pos.x + coef * size.x, pos.y), _gameLevel.border,
+                                                        "hBorder" + id, parentTransform, "Border");
 
     border.GetComponent<SpriteRenderer>().color = new Color(0.1f, 0.1f, 0.1f);
     border.transform.localScale = new Vector3(size.x * 100f / _gameLevel.border.rect.width,
-        size.y * 100f / _gameLevel.border.rect.height, 1.0f);
+                                              size.y * 100f / _gameLevel.border.rect.height, 1.0f);
     return border;
   }
 
-  public Border CreateHBorder(string id, Vector2 pos, Vector2 size,
-                              Transform parentTransform, bool bRight) {
+  public Border CreateHBorder(string id, Vector2 pos, Vector2 size, Transform parentTransform, bool bRight) {
     var coef = bRight ? 0.5f : -0.5f;
-    var border = EGHelpers.CreateObjectByScript<Border>(
-                   new Vector2(pos.x + coef * size.x, pos.y), "hBorder" + id,
-                   parentTransform, "Border");
+    var border = EGHelpers.CreateObjectByScript<Border>(new Vector2(pos.x + coef * size.x, pos.y),
+                                                        "hBorder" + id, parentTransform, "Border");
     var boxCollider = border.GetComponent<BoxCollider2D>();
     boxCollider.size = new Vector2(size.x, size.y);
     return border;
@@ -153,6 +147,8 @@ public class GameManager : EG.UnitySingleton<GameManager> {
 
     _textLevels = Resources.LoadAll<TextAsset>("levels");
 
+    _gameOverText.enabled = false;
+
     _menuPanel = GameObject.Find("MenuPanel");
     for (int i = 1; i <= _textLevels.Length; ++i) {
       var goLevelButton = (Button)GameObject.Instantiate(prefabGoLevelButton, _menuPanel.transform);
@@ -178,15 +174,10 @@ public class GameManager : EG.UnitySingleton<GameManager> {
     StartCoroutine(_WaitAndStartEnd());
   }
 
-  // Update is called once per frame
   void Update() {
     if (!_bStart) {
       return;
     }
-    /*if (!_bLevelSetup && Input.GetButtonDown("Submit")) {
-      _levelNumber = 0;
-      _LevelUp();
-      }*/
   }
 
   #endregion
@@ -255,13 +246,13 @@ public class GameManager : EG.UnitySingleton<GameManager> {
   }
 
   private IEnumerator _LevelUpEndCoroutine() {
-    DebugLogger.WriteInfo("_LevelUpEndCoroutine");    
+    DebugLogger.WriteInfo("_LevelUpEndCoroutine");
     _MenuOnOff(false);
     _LevelOn();
     _stageText.text = String.Format("STAGE {0}", _levelNumber);
     _stageText.enabled = true;
     _canvas.sortingOrder = 3;
-    
+
     yield return new WaitForSeconds(1);
 
     _stageText.enabled = false;
@@ -285,6 +276,7 @@ public class GameManager : EG.UnitySingleton<GameManager> {
       _gameLevel.Init(_player);
       _inputManager.SetPlayer(_player);
       _gameLevel.OnLevelWin += OnLevelWin;
+      _gameLevel.OnGameOver += OnGameOver;
       _gameLevel.OnUserExit += OnUserExit;
     }
 
@@ -311,14 +303,31 @@ public class GameManager : EG.UnitySingleton<GameManager> {
     player.gameObject.SetActive(false);
     yield return new WaitForSeconds(3f);
     _levelWinText.enabled = false;
-    Exit(0);    
+    Exit(0);
   }
 
   private void OnLevelWin() {
     _LevelOff();
   }
 
-  private void OnUserExit(int reason) {    
+  private void OnGameOver() {
+    StartCoroutine(__GameOver(this));
+  }
+
+  private IEnumerator __GameOver(GameManager gameManager) {
+    DebugLogger.WriteInfo("GameManager.__GameOver");
+    var player = _player;
+    player.IsControlable = false;
+    yield return new WaitForEndOfFrame();
+    _gameOverText.transform.localPosition = player.gameObject.transform.localPosition;
+    _gameOverText.enabled = true;
+    player.gameObject.SetActive(false);
+    yield return new WaitForSeconds(4f);
+    _gameOverText.enabled = false;
+    Exit(0);
+  }
+
+  private void OnUserExit(int reason) {
     _player.IsControlable = false;
     _player.gameObject.SetActive(false);
     Exit(reason);
@@ -326,7 +335,7 @@ public class GameManager : EG.UnitySingleton<GameManager> {
 
   private void Exit(int reason) {
     _gameLevel.Exit();
-    if (reason == 0) {      
+    if (reason == 0) {
       if (_highScore < _player.Score) {
         HighScore = _player.Score;
         _highScoreText.text = String.Format("High Score: {0}", _highScore);

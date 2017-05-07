@@ -63,7 +63,7 @@ public class Bridge : BaseIDObject<int> {
       /*if (Pos.x > rightIsland.Pos.x || Pos.x < leftIsland.Pos.x) {
         DebugLogger.WriteError("Bridge.LoadLevel horizontal bridge of islands is impossible create");
         return false;
-      }*/
+        }*/
       leftIsland.Bridges.AddBridge(Island.Side.Right, this);
       rightIsland.Bridges.AddBridge(Island.Side.Left, this);
       Size = new Vector2(rightIslandRect.Left - leftIslandRect.Right, width);
@@ -98,7 +98,7 @@ public class Bridge : BaseIDObject<int> {
       /*if (Pos.y < bottomIsland.Pos.y || Pos.y > topIsland.Pos.y) {
         DebugLogger.WriteError("Bridge.LoadLevel vertical bridge of islands is impossible create");
         return false;
-      }*/
+        }*/
       topIsland.Bridges.AddBridge(Island.Side.Bottom, this);
       bottomIsland.Bridges.AddBridge(Island.Side.Top, this);
       Size = new Vector2(width, topIslandRect.Bottom - bottomIslandRect.Top);
@@ -109,7 +109,7 @@ public class Bridge : BaseIDObject<int> {
     DebugLogger.WriteInfo("Bridge.LoadLevel Pos = {0}; Size = {1}", Pos.ToString(), Size.ToString());
     var backObj = EGHelpers.CreateSprite(Pos, sprite, "bridgeback_" + Id, _parentTransform, false);
     backObj.transform.localScale = new Vector3(Size.x * 100f / sprite.rect.width,
-        Size.y * 100f / sprite.rect.height, 1f);
+                                               Size.y * 100f / sprite.rect.height, 1f);
     var sprRender = backObj.GetComponent<SpriteRenderer>();
     sprRender.sortingOrder = -1;
 
@@ -127,17 +127,31 @@ public class Bridge : BaseIDObject<int> {
   private Transform _parentTransform;
   private List<Island> _islandList;
 
+  private bool bUnity56 = true;
+
   private void CreateVBorders(Vector2 pos, Vector2 size) {
-    GameManager.Instance.CreateSpriteVBorder(String.Format("{0}_0_1", Id),
-        pos + new Vector2(0f, 0.5f * Size.y), size, _parentTransform, true);
-    GameManager.Instance.CreateSpriteVBorder(String.Format("{0}_0_2", Id),
-        pos - new Vector2(0f, 0.5f * Size.y), size, _parentTransform, false);
+    GameManager.Instance.CreateSpriteVBorder(String.Format("{0}_0_1", Id), pos + new Vector2(0f, 0.5f * Size.y),
+                                             size, _parentTransform, true);
+    GameManager.Instance.CreateSpriteVBorder(String.Format("{0}_0_2", Id), pos - new Vector2(0f, 0.5f * Size.y),
+                                             size, _parentTransform, false);
+    if (bUnity56) {
+      GameManager.Instance.CreateVBorder(String.Format("{0}_0_1", Id), pos + new Vector2(0f, 0.5f * Size.y),
+                                         size, _parentTransform, true);
+      GameManager.Instance.CreateVBorder(String.Format("{0}_0_2", Id), pos - new Vector2(0f, 0.5f * Size.y),
+                                         size, _parentTransform, false);
+    }
   }
 
   private void CreateHBorders(Vector2 pos, Vector2 size) {
-    GameManager.Instance.CreateSpriteHBorder(String.Format("{0}_1_1", Id),
-        pos + new Vector2(0.5f * Size.x, 0f), size, _parentTransform, true);
-    GameManager.Instance.CreateSpriteHBorder(String.Format("{0}_1_2", Id),
-        pos - new Vector2(0.5f * Size.x, 0f), size, _parentTransform, false);
+    GameManager.Instance.CreateSpriteHBorder(String.Format("{0}_1_1", Id), pos + new Vector2(0.5f * Size.x, 0f),
+                                             size, _parentTransform, true);
+    GameManager.Instance.CreateSpriteHBorder(String.Format("{0}_1_2", Id), pos - new Vector2(0.5f * Size.x, 0f),
+                                             size, _parentTransform, false);
+    if (bUnity56) {
+      GameManager.Instance.CreateHBorder(String.Format("{0}_1_1", Id), pos + new Vector2(0.5f * Size.x, 0f),
+                                         size, _parentTransform, true);
+      GameManager.Instance.CreateHBorder(String.Format("{0}_1_2", Id), pos - new Vector2(0.5f * Size.x, 0f),
+                                         size, _parentTransform, false);
+    }
   }
 }

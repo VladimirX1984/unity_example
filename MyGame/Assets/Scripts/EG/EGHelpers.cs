@@ -85,7 +85,7 @@ namespace EG {
     }
 
     public static GameObject CreateAnimation(Vector3 position, RuntimeAnimatorController anim,
-        string name, bool bAddBoxCollider = false) {
+                                             string name, bool bAddBoxCollider = false) {
       var go = new GameObject(name);
       go.transform.position = position;
       go.AddComponent<SpriteRenderer>();
@@ -98,7 +98,7 @@ namespace EG {
     }
 
     public static GameObject CreateAnimation(Vector3 position, RuntimeAnimatorController anim,
-        string name, Transform parent, bool bAddBoxCollider = false) {
+                                             string name, Transform parent, bool bAddBoxCollider = false) {
       var go = new GameObject(name);
       go.transform.position = position;
       go.transform.parent = parent;
@@ -112,7 +112,7 @@ namespace EG {
     }
 
     public static GameObject CreateAnimation(Vector3 position, RuntimeAnimatorController anim,
-        string name, Type colliderType) {
+                                             string name, Type colliderType) {
       var go = new GameObject(name);
       go.transform.position = position;
       go.AddComponent<SpriteRenderer>();
@@ -125,7 +125,7 @@ namespace EG {
     }
 
     public static GameObject CreateAnimation(Vector3 position, RuntimeAnimatorController anim,
-        string name, Transform parent, Type colliderType) {
+                                             string name, Transform parent, Type colliderType) {
       var go = new GameObject(name);
       go.transform.position = position;
       go.transform.parent = parent;
@@ -150,7 +150,7 @@ namespace EG {
     }
 
     public static GameObject CreateObjectByPrefab(Vector3 position, GameObject prefab, Transform parent,
-        string tag = "") {
+                                                  string tag = "") {
       var go = GameObject.Instantiate(prefab);
       if (!String.IsNullOrEmpty(tag)) {
         go.tag = tag;
@@ -172,8 +172,7 @@ namespace EG {
       return go.AddComponent<T>();
     }
 
-    public static T CreateObjectByScript<T>(Vector3 position, string name, Transform parent,
-                                            string tag = "")
+    public static T CreateObjectByScript<T>(Vector3 position, string name, Transform parent, string tag = "")
     where T : MonoBehaviour {
       var go = new GameObject(name);
       if (!String.IsNullOrEmpty(tag)) {
@@ -184,8 +183,7 @@ namespace EG {
       return go.AddComponent<T>();
     }
 
-    public static T CreateSpriteByScript<T>(Vector3 position, Sprite sprite, string name,
-                                            string tag = "")
+    public static T CreateSpriteByScript<T>(Vector3 position, Sprite sprite, string name, string tag = "")
     where T : MonoBehaviour {
       var go = new GameObject(name);
       if (!String.IsNullOrEmpty(tag)) {
@@ -197,8 +195,7 @@ namespace EG {
       return go.AddComponent<T>();
     }
 
-    public static T CreateSpriteByScript<T>(Vector3 position, Sprite sprite, string name,
-                                            Transform parent, string tag = "")
+    public static T CreateSpriteByScript<T>(Vector3 position, Sprite sprite, string name, Transform parent, string tag = "")
     where T : MonoBehaviour {
       var go = new GameObject(name);
       if (!String.IsNullOrEmpty(tag)) {
@@ -211,8 +208,8 @@ namespace EG {
       return go.AddComponent<T>();
     }
 
-    public static T CreateAnimationByScript<T>(Vector3 position, RuntimeAnimatorController anim,
-        string name, string tag = "")
+    public static T CreateAnimationByScript<T>(Vector3 position, RuntimeAnimatorController anim, string name,
+                                               string tag = "")
     where T : MonoBehaviour {
       var go = new GameObject(name);
       if (!String.IsNullOrEmpty(tag)) {
@@ -225,8 +222,8 @@ namespace EG {
       return go.AddComponent<T>();
     }
 
-    public static T CreateAnimationByScript<T>(Vector3 position, RuntimeAnimatorController anim,
-        string name, Transform parent, string tag = "")
+    public static T CreateAnimationByScript<T>(Vector3 position, RuntimeAnimatorController anim, string name,
+                                               Transform parent, string tag = "")
     where T : MonoBehaviour {
       var go = new GameObject(name);
       if (!String.IsNullOrEmpty(tag)) {
