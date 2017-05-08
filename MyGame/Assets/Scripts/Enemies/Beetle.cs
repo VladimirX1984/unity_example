@@ -69,13 +69,11 @@ public class Beetle : EnemyEmitter {
         }
         break;
       case GameBonusType.Speed: {
-          StartCoroutine(__MultiSpeed(2.0f,
-                                      (GameManager.Instance.GetGameLevel() as GameLevel).EnemyUpgrade.SpeedTime));
+          StartCoroutine(__MultiSpeed(2.0f, (GameManager.Instance.GetGameLevel() as GameLevel).EnemyUpgrade.SpeedTime));
         }
         break;
       case GameBonusType.Shield: {
-          StartCoroutine(__GetShield((GameManager.Instance.GetGameLevel() as
-                                      GameLevel).EnemyUpgrade.ShieldTime));
+          StartCoroutine(__GetShield((GameManager.Instance.GetGameLevel() as GameLevel).EnemyUpgrade.ShieldTime));
         }
         break;
       case GameBonusType.Bullet: {
@@ -240,9 +238,7 @@ public class Beetle : EnemyEmitter {
   }
 
   private void _OnMoveDirChanged(Vector2 moveDir) {
-    //DebugLogger.WriteInfo("Beetle::_OnMoveDirChanged moveDir = {0}", moveDir.ToString());
     var angle = EGHelpers.GetDegAngle(moveDir);
-    //DebugLogger.WriteInfo("Beetle::_OnMoveDirChanged angle = {0}", angle);
     transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
   }
 
@@ -261,9 +257,8 @@ public class Beetle : EnemyEmitter {
     DebugLogger.WriteInfo("Beetle.Delete IsBonus = {0}", IsBonus);
     if (IsBonus) {
       int type = UnityEngine.Random.Range(0, 7);
-      var gem = EGHelpers.CreateAnimationByScript<Gem>(__Transform.position,
-                                                       GameManager.Instance.gemBonusAnims[type], "GemBonus" + type.ToString(), __Transform.parent,
-                                                       GameLevel.NeutralTagName);
+      var gem = EGHelpers.CreateAnimationByScript<Gem>(__Transform.position, GameManager.Instance.gemBonusAnims[type],
+                                                       "GemBonus" + type.ToString(), __Transform.parent, GameLevel.NeutralTagName);
       gem.Kind = (GemType)type;
     }
     Destroy(gameObject);
