@@ -1,3 +1,7 @@
 *.log
 *.bin
 *.info
+/metadata/
+/AtlasCache/
+/AnnotationManager
+/assetDatabase3
