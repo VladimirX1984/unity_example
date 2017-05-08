@@ -13,6 +13,8 @@ using EG.Players;
 
 public class EnemyManager : BaseMonoManager {
 
+  public int Count { get { return _enemyList.Count; } }
+
   public void Init(IPlayer player) {
     _player = player;
   }
@@ -36,10 +38,13 @@ public class EnemyManager : BaseMonoManager {
       enemy.IsBonus = (Random.Range(0, 39 + number) >= 23 + number);
     }
     //DebugLogger.WriteInfo("EnemyManager.AddEnemy enemy.Id = {0}; enemy.IsBonus = {1}; number = {2}",
-      //                  enemy.Id, enemy.IsBonus ? 1 : 0, number);
+    //                  enemy.Id, enemy.IsBonus ? 1 : 0, number);
     _enemyList.Add(enemy);
     _enemyIdList.Add(enemy.Id);
     enemy.AddObserver(_DiedObject);
+    if (OnEnemyAdded != null) {
+      OnEnemyAdded();
+    }
   }
 
   public void SleepEnemies(float time) {
@@ -54,6 +59,8 @@ public class EnemyManager : BaseMonoManager {
     _enemyIdList.Clear();
   }
 
+  public event UnityAction OnEnemyAdded;
+  public event UnityAction OnEnemyRemoved;
   public event UnityAction OnEnemyZero;
 
   public EnemyManager()
@@ -82,6 +89,11 @@ public class EnemyManager : BaseMonoManager {
                           obj.Id, reason, _enemyIdList.Count);
     _enemyList.Remove(obj as IEnemy);
     _enemyIdList.Remove(obj.Id);
+
+    if (OnEnemyRemoved != null) {
+      OnEnemyRemoved();
+    }
+
     if (reason == 0) {
       (_player as Skelsp).KillEnemy(obj as IEnemy);
     }

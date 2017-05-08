@@ -64,6 +64,7 @@ public class GameLevel : BaseMonoObject, IGameLevel {
   public Text _playerScoreText;
   public Text _playerAmmoText;
   public Text _playerGunText;
+  public Text _enemyCountText;
 
   #endregion
 
@@ -98,6 +99,7 @@ public class GameLevel : BaseMonoObject, IGameLevel {
     _playerScoreText.text = String.Format("S: {0}", _player.Score);
     _playerAmmoText.text = String.Format("A: {0}", _player.Ammo);
     _playerGunText.text = String.Format("G: {0}", _player.CarringWeapo.ToString());
+    _enemyCountText.text = String.Format("E: {0}", _enemyManager.Count.ToString());
     GameCanvas.enabled = true;
     GameUI.SetActive(true);
     _player.IsControlable = true;
@@ -152,6 +154,13 @@ public class GameLevel : BaseMonoObject, IGameLevel {
       }
     };
     _enemyManager.Init(player);
+
+    _enemyManager.OnEnemyAdded += () => {
+      _enemyCountText.text = String.Format("E: {0}", _enemyManager.Count.ToString());
+    };
+    _enemyManager.OnEnemyRemoved += () => {
+      _enemyCountText.text = String.Format("E: {0}", _enemyManager.Count.ToString());
+    };
   }
 
   public void LoadLevel(string levelParams) {
@@ -275,6 +284,7 @@ public class GameLevel : BaseMonoObject, IGameLevel {
     EnemyUpgrade.SpeedTime = (float)jsEnemyBonus["speedTime"].AsDouble;
     EnemyUpgrade.ShieldTime = (float)jsEnemyBonus["shieldTime"].AsDouble;
     EnemyUpgrade.Health = (float)jsEnemyBonus["health(%)"].AsDouble;
+    _enemyCountText.text = String.Format("E: {0}", _enemyManager.Count.ToString());
   }
 
   public void SleepEnemies(float time) {

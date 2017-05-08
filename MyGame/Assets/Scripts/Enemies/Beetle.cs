@@ -21,7 +21,7 @@ public class Beetle : EnemyEmitter {
 
     if (Level == 0) {
       var enemy = EGHelpers.CreateObjectByPrefab<Monster>(__Transform.localPosition + vec,
-                  GameManager.Instance.GetMonoGameLevel().prefabSmallMonster, __Transform.parent);
+                                                          GameManager.Instance.GetMonoGameLevel().prefabSmallMonster, __Transform.parent);
       StartCoroutine(OnCreateEnemy(enemy));
       enemy.Speed = Speed + UnityEngine.Random.Range(0.9f, 1.1f);
       enemy.SetMoveDirection(GetMoveDirection());
@@ -30,7 +30,7 @@ public class Beetle : EnemyEmitter {
 
     if (Level == 1) {
       var enemy = EGHelpers.CreateObjectByPrefab<Monster>(__Transform.localPosition + vec,
-                  GameManager.Instance.GetMonoGameLevel().prefabTendrils, __Transform.parent);
+                                                          GameManager.Instance.GetMonoGameLevel().prefabTendrils, __Transform.parent);
       StartCoroutine(OnCreateEnemy(enemy));
       enemy.Level = _count % 3 == 0 ? 1 : 0;
       enemy.Speed = Speed + UnityEngine.Random.Range(0.7f, 0.9f);
@@ -60,31 +60,31 @@ public class Beetle : EnemyEmitter {
     DebugLogger.WriteInfo("Beetle.ApplyGem bonusType = {0}", bonusType.ToString());
     switch (bonusType) {
       case GameBonusType.UpgradeGun: {
-      } break;
+        } break;
       case GameBonusType.ChildrenShield: {
-      } break;
+        } break;
       case GameBonusType.Time: {
-        __SleepGameObject(GameManager.Instance.GetPlayer(),
-                          (GameManager.Instance.GetGameLevel() as GameLevel).EnemyUpgrade.SleepTime);
-      }
-      break;
+          __SleepGameObject(GameManager.Instance.GetPlayer(),
+                            (GameManager.Instance.GetGameLevel() as GameLevel).EnemyUpgrade.SleepTime);
+        }
+        break;
       case GameBonusType.Speed: {
-        StartCoroutine(__MultiSpeed(2.0f,
-                                    (GameManager.Instance.GetGameLevel() as GameLevel).EnemyUpgrade.SpeedTime));
-      }
-      break;
+          StartCoroutine(__MultiSpeed(2.0f,
+                                      (GameManager.Instance.GetGameLevel() as GameLevel).EnemyUpgrade.SpeedTime));
+        }
+        break;
       case GameBonusType.Shield: {
-        StartCoroutine(__GetShield((GameManager.Instance.GetGameLevel() as
-                                    GameLevel).EnemyUpgrade.ShieldTime));
-      }
-      break;
+          StartCoroutine(__GetShield((GameManager.Instance.GetGameLevel() as
+                                      GameLevel).EnemyUpgrade.ShieldTime));
+        }
+        break;
       case GameBonusType.Bullet: {
-        //_gun.AddBullet();
-      } break;
+          //_gun.AddBullet();
+        } break;
       case GameBonusType.Live: {
-        Health += Health * (GameManager.Instance.GetGameLevel() as GameLevel).EnemyUpgrade.Health / 100.0f;
-      }
-      break;
+          Health += Health * (GameManager.Instance.GetGameLevel() as GameLevel).EnemyUpgrade.Health / 100.0f;
+        }
+        break;
     }
   }
 
@@ -121,21 +121,21 @@ public class Beetle : EnemyEmitter {
     DebugLogger.WriteInfo("OnCollisionEnter2D other.gameObject.tag = {0}", other.gameObject.tag);
     switch (other.gameObject.tag) {
       case GameLevel.BorderTagName: {
-        HandleCollisionBorder(other);
-      }
-      break;
+          HandleCollisionBorder(other);
+        }
+        break;
       case GameLevel.EnemyTagName: {
-        HandleCollisionEnemy(other);
-      }
-      break;
+          HandleCollisionEnemy(other);
+        }
+        break;
       case GameLevel.PlayerTagName: {
-        HandleCollisionPlayer(other);
-      }
-      break;
+          HandleCollisionPlayer(other);
+        }
+        break;
       case GameLevel.TerrainTagName: {
-        HandleCollisionTerrain(other);
-      }
-      break;
+          HandleCollisionTerrain(other);
+        }
+        break;
     }
   }
 
@@ -249,10 +249,10 @@ public class Beetle : EnemyEmitter {
   private void _OnParamChanged(string propName, object oldValue, object newValue) {
     switch (propName) {
       case "Speed": {
-        float fval = Convert.ToSingle(newValue);
-        CreateEnemyCountBySec = fval / 4.0f;
-      }
-      break;
+          float fval = Convert.ToSingle(newValue);
+          CreateEnemyCountBySec = fval / 4.0f;
+        }
+        break;
     }
   }
 
@@ -262,8 +262,8 @@ public class Beetle : EnemyEmitter {
     if (IsBonus) {
       int type = UnityEngine.Random.Range(0, 7);
       var gem = EGHelpers.CreateAnimationByScript<Gem>(__Transform.position,
-                GameManager.Instance.gemBonusAnims[type], "GemBonus" + type.ToString(), __Transform.parent,
-                GameLevel.NeutralTagName);
+                                                       GameManager.Instance.gemBonusAnims[type], "GemBonus" + type.ToString(), __Transform.parent,
+                                                       GameLevel.NeutralTagName);
       gem.Kind = (GemType)type;
     }
     Destroy(gameObject);
@@ -293,7 +293,6 @@ public class Beetle : EnemyEmitter {
   }
 
   private IEnumerator __StartEnemy(IEnemy enemy, float speedEnd, int count, float time) {
-    //enemy.SetColliderTrigger(true);
     float change = enemy.Speed - speedEnd;
     DebugLogger.WriteInfo("Beetle.__StartEnemy change = {0}", change);
     for (int i = 0; i < count; ++i) {
@@ -301,6 +300,5 @@ public class Beetle : EnemyEmitter {
       enemy.Speed -= (change / count);
       DebugLogger.WriteInfo("Beetle.__StartEnemy enemy.Speed = {0}", enemy.Speed);
     }
-    //enemy.SetColliderTrigger(false);
   }
 }
