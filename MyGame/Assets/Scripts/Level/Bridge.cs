@@ -127,19 +127,11 @@ public class Bridge : BaseIDObject<int> {
   private Transform _parentTransform;
   private List<Island> _islandList;
 
-  private bool bUnity56 = true;
-
   private void CreateVBorders(Vector2 pos, Vector2 size) {
     GameManager.Instance.CreateSpriteVBorder(String.Format("{0}_0_1", Id), pos + new Vector2(0f, 0.5f * Size.y),
                                              size, _parentTransform, true);
     GameManager.Instance.CreateSpriteVBorder(String.Format("{0}_0_2", Id), pos - new Vector2(0f, 0.5f * Size.y),
                                              size, _parentTransform, false);
-    if (bUnity56) {
-      GameManager.Instance.CreateVBorder(String.Format("{0}_0_1", Id), pos + new Vector2(0f, 0.5f * Size.y),
-                                         size, _parentTransform, true);
-      GameManager.Instance.CreateVBorder(String.Format("{0}_0_2", Id), pos - new Vector2(0f, 0.5f * Size.y),
-                                         size, _parentTransform, false);
-    }
   }
 
   private void CreateHBorders(Vector2 pos, Vector2 size) {
@@ -147,11 +139,5 @@ public class Bridge : BaseIDObject<int> {
                                              size, _parentTransform, true);
     GameManager.Instance.CreateSpriteHBorder(String.Format("{0}_1_2", Id), pos - new Vector2(0.5f * Size.x, 0f),
                                              size, _parentTransform, false);
-    if (bUnity56) {
-      GameManager.Instance.CreateHBorder(String.Format("{0}_1_1", Id), pos + new Vector2(0.5f * Size.x, 0f),
-                                         size, _parentTransform, true);
-      GameManager.Instance.CreateHBorder(String.Format("{0}_1_2", Id), pos - new Vector2(0.5f * Size.x, 0f),
-                                         size, _parentTransform, false);
-    }
   }
 }
